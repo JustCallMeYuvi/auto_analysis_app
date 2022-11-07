@@ -39,7 +39,7 @@ dependencies:
   email_validator: ^2.1.17
   google_fonts: ^3.0.1
   http: ^0.13.5
-  # qr_code_scanner: ^1.0.1 
+  qr_code_scanner: ^1.0.1 
   flutter_barcode_scanner: ^2.0.0
 
 dev_dependencies:
