@@ -157,7 +157,7 @@ class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
               ),
             ),
             onTap: () {
-              //scanQRCode();
+              scanQRCode();
             },
           ),
         ),
@@ -165,18 +165,20 @@ class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
     );
   }
 
-  // void scanQRCode() async {
-  //   try {
-  //     final qrCode = await FlutterBarcodeScanner.scanBarcode(
-  //         '0xFF2196F3', 'Cancel', true, ScanMode.QR);
-  //     if (!mounted) return;
-  //     setState(() {
-  //       getResult = qrCode;
-  //     });
-  //     print('QRCode_Result:--');
-  //     print(qrCode);
-  //   } on PlatformException {
-  //     getResult = 'Failed to scan QR Code';
-  //   }
-  // }
+  void scanQRCode() async {
+    try {
+      final qrCode = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.QR);
+
+      if (!mounted) return;
+
+      setState(() {
+        getResult = qrCode;
+      });
+      print("QRCode_Result:--");
+      print(qrCode);
+    } on PlatformException {
+      getResult = 'Failed to scan QR Code.';
+    }
+  }
 }
