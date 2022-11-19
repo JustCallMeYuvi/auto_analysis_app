@@ -1,6 +1,8 @@
 import 'package:auto_analytics_app/model/car.dart';
 import 'package:flutter/material.dart';
 
+import '../model/car_information_model.dart';
+
 class CarInformation extends StatelessWidget {
   CarInformation({super.key, required this.car});
 
@@ -9,12 +11,12 @@ class CarInformation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Color(0xFF00000040), width: 1)),
+          color: const Color(0xffFFFFFF),
+          border: Border.all(color: Color(0xff00000040), width: 1)),
       height: 135,
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+      padding: const EdgeInsets.all(10),
       child: Row(children: [
         Container(
           width: 90,
@@ -27,7 +29,7 @@ class CarInformation extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 10,
         ),
         Column(
@@ -48,7 +50,7 @@ class CarInformation extends StatelessWidget {
               car.stock ?? '',
               style: const TextStyle(fontSize: 14),
             ),
-            SizedBox(
+            const SizedBox(
               height: 4,
             ),
             Text(

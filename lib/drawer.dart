@@ -1,5 +1,7 @@
 import 'package:auto_analytics_app/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({super.key});
@@ -9,6 +11,7 @@ class DrawerScreen extends StatefulWidget {
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
+  var getResult = 'QR Code Result';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,12 +155,29 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 ),
               ),
               onTap: () {
-                //scanQRCode();
+                scanQRCode();
               },
             ),
           ),
         ]),
       ),
     );
+  }
+
+  void scanQRCode() async {
+    try {
+      final qrCode = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.QR);
+
+      if (!mounted) return;
+
+      setState(() {
+        getResult = qrCode;
+      });
+      print("QRCode_Result:--");
+      print(qrCode);
+    } on PlatformException {
+      getResult = 'Failed to scan QR Code.';
+    }
   }
 }

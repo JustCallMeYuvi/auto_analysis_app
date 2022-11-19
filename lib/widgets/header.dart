@@ -1,8 +1,12 @@
 import 'package:auto_analytics_app/drawer.dart';
 import 'package:flutter/material.dart';
 
+import '../model/car_information_model.dart';
+
 class HeaderHomePage extends StatelessWidget {
-  const HeaderHomePage({Key? key}) : super(key: key);
+  HeaderHomePage({this.model});
+
+  CarInformationModel? model;
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +48,12 @@ class HeaderHomePage extends StatelessWidget {
                             Container(
                               height: 180,
                               child: Column(
-                                children: const [
+                                children: [
                                   SizedBox(
                                     height: 40,
                                   ),
                                   Text(
-                                    '158',
+                                    model!.data!.totalVehicleOnline.toString(),
                                     style: TextStyle(
                                         color: Color(0xFF313131),
                                         fontSize: 30,
@@ -63,7 +67,8 @@ class HeaderHomePage extends StatelessWidget {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    '210',
+                                    model!.data!.totalVehicleinventory
+                                        .toString(),
                                     style: TextStyle(
                                         color: Color(0xFF313131),
                                         fontSize: 30,
@@ -87,12 +92,12 @@ class HeaderHomePage extends StatelessWidget {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   SizedBox(
                                     height: 21,
                                   ),
                                   Text(
-                                    '32.91',
+                                    model!.data!.averageOnlineAge.toString(),
                                     style: TextStyle(
                                         color: Color(0xFF313131),
                                         fontSize: 30,
@@ -106,7 +111,7 @@ class HeaderHomePage extends StatelessWidget {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    '45.26',
+                                    model!.data!.averageOwnedAge.toString(),
                                     style: TextStyle(
                                         color: Color(0xFF313131),
                                         fontSize: 30,

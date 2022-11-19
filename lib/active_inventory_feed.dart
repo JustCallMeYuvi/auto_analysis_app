@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 import 'model/car.dart';
+import 'model/car_information_model.dart';
 
 class ActiveInventoryFeed extends StatefulWidget {
   const ActiveInventoryFeed({super.key});
@@ -24,6 +25,7 @@ class _ActiveInventoryFeedState extends State<ActiveInventoryFeed> {
   List<Vehicle> vehicle = [];
   var isLoading = false;
 
+  CarInformationModel? model;
   @override
   void initState() {
     super.initState();
@@ -37,11 +39,13 @@ class _ActiveInventoryFeedState extends State<ActiveInventoryFeed> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
         body: isLoading
-            ? const Text('Is Loading')
+            ? const Center(child: CircularProgressIndicator())
             : SafeArea(
                 child: Column(
                   children: [
-                    const HeaderHomePage(),
+                    HeaderHomePage(
+                      model: model,
+                    ),
                     Expanded(
                       child: ListView.builder(
                         itemBuilder: (BuildContext context, int index) {
@@ -62,20 +66,26 @@ class _ActiveInventoryFeedState extends State<ActiveInventoryFeed> {
       isLoading = true;
     });
 
-    try {
-      var client = http.Client();
-      var uri = Uri.parse('https://powerbi.approcket.in/api/v1/report');
-      var response = await client.get(uri);
-      if (response.statusCode == 200) {
-        log("My API response ${response.statusCode}");
-        Map<String, dynamic> decoded = jsonDecode(response.body);
-        var carModel = CarModel.fromJson(decoded);
+    //try {
+    //   var client = http.Client();
+    //   var uri = Uri.parse('https://powerbi.approcket.in/api/v1/report');
+    //   var response = await client.get(uri);
+    //   if (response.statusCode == 200) {
+    //     log("My API response ${response.statusCode}");
+    //     Map<String, dynamic> decoded = jsonDecode(response.body);
+    //     var carModel = CarModel.fromJson(decoded);
 
-        vehicle = carModel.data?.vehicle ?? [];
-      }
-    } catch (e) {
-      print("the api error is ${e.toString()}");
-    }
+    //     vehicle = carModel.data?.vehicle ?? [];
+    //   }
+    // } catch (e) {
+    //   print("the api error is ${e.toString()}");
+    // }
+    var rawModel =
+        await http.get(Uri.parse('https://powerbi.approcket.in/api/v1/report'));
+
+    model = carInformationModelFromJson(rawModel.body);
+    vehicle = model!.data?.vehicle ?? [];
+
     setState(() {
       isLoading = false;
     });
