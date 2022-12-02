@@ -1,9 +1,19 @@
+import 'dart:io';
+
 import 'package:auto_analytics_app/splash.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart' as path;
 
 import 'active_inventory_feed.dart';
 
-void main() {
+void main() async{
+
+   WidgetsFlutterBinding.ensureInitialized();
+  Directory directory = await path.getApplicationDocumentsDirectory();
+   Hive.init(directory.path);
+  var box = await Hive.openBox('authenticationBox');
+
   runApp(const MyApp());
 }
 
