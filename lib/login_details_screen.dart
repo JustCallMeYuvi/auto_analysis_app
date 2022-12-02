@@ -1,6 +1,9 @@
 import 'package:auto_analytics_app/active_inventory_feed.dart';
 import 'package:auto_analytics_app/app_colors.dart';
+import 'package:auto_analytics_app/model/authentication.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:http/http.dart' as http;
 
 class LoginDetails extends StatefulWidget {
   const LoginDetails({super.key});
@@ -10,9 +13,15 @@ class LoginDetails extends StatefulWidget {
 }
 
 class _LoginDetailsState extends State<LoginDetails> {
+  var box;
+
   final formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  @override
+  void initState() {}
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -91,7 +100,7 @@ class _LoginDetailsState extends State<LoginDetails> {
                 Material(
                   color: Colors.transparent,
                   child: InkWell(
-                    onTap: () {
+                    onTap: () async {
                       if (emailController.text.isEmpty) return;
                       if (passwordController.text.isEmpty) return;
                       // if (formKey.currentState!.validate()) {
@@ -100,12 +109,14 @@ class _LoginDetailsState extends State<LoginDetails> {
                       // }
 
                       {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const ActiveInventoryFeed()),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) =>
+                        //           const ActiveInventoryFeed()),
+                        // );
+
+                       await  loginValidatation();
                       }
                     },
                     borderRadius: BorderRadius.circular(16.0),
@@ -151,5 +162,28 @@ class _LoginDetailsState extends State<LoginDetails> {
         ),
       ),
     );
+  }
+
+  loginValidatation() async {
+    final response = await http
+        .post(Uri.parse("https://powerbi.approcket.in/api/v1/login"), body: {
+      "email": emailController.text,
+      "password": passwordController.text,
+    });
+
+    if (response.statusCode == 200) {
+      print("yahoo");
+      Welcome welcome = welcomeFromJson(response.body);
+
+      var box = Hive.box('authenticationBox');
+
+      box.put("token", welcome.data!.token);
+
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>ActiveInventoryFeed()));
+
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Enter valid logins")));
+    }
   }
 }

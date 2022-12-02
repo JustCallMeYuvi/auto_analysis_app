@@ -13,7 +13,7 @@ class HeaderHomePage extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           border:
-              Border(bottom: BorderSide(color: Colors.black.withOpacity(.5)))),
+              Border(bottom: BorderSide(color: Colors.black.withOpacity(0.5)))),
       // height: 225,
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,7 +24,7 @@ class HeaderHomePage extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => DrawerScreen()));
+                        MaterialPageRoute(builder: (_) => DrawerScreen(model: model,)));
                   },
                   child: Container(
                     height: 225,

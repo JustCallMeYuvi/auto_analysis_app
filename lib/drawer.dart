@@ -1,10 +1,16 @@
 import 'package:auto_analytics_app/app_colors.dart';
+import 'package:auto_analytics_app/login_page.dart';
+import 'package:auto_analytics_app/model/car_information_model.dart';
+import 'package:auto_analytics_app/twenty_one_days_vehicle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:hive/hive.dart';
 
 class DrawerScreen extends StatefulWidget {
-  const DrawerScreen({super.key});
+  DrawerScreen({super.key, this.model});
+
+  CarInformationModel? model;
 
   @override
   State<DrawerScreen> createState() => _DrawerScreenState();
@@ -12,6 +18,7 @@ class DrawerScreen extends StatefulWidget {
 
 class _DrawerScreenState extends State<DrawerScreen> {
   var getResult = 'QR Code Result';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,59 +63,99 @@ class _DrawerScreenState extends State<DrawerScreen> {
           const SizedBox(
             height: 10,
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(right: 60),
-            child: Text(
-              '21 Day Vehicles',
-              style: TextStyle(
+            child: GestureDetector(
+              child: Text(
+                '21 Day Vehicles',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    decoration: TextDecoration.underline),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          TwentyOneDaysVehicle(model: widget.model,age: 21,)),
+                );
+              },
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+           Padding(
+            padding: EdgeInsets.only(right: 60),
+            child: InkWell(
+
+              child: Text(
+                '40 Day Vehicles',
+                style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline,
                   fontSize: 14,
-                  decoration: TextDecoration.underline),
+                ),
+              ),
+              onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          TwentyOneDaysVehicle(model: widget.model,age: 40,)),
+                );
+              },
             ),
           ),
           const SizedBox(
             height: 10,
           ),
-          const Padding(
+           Padding(
             padding: EdgeInsets.only(right: 60),
-            child: Text(
-              '40 Day Vehicles',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.underline,
-                fontSize: 14,
+            child: InkWell(
+              onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          TwentyOneDaysVehicle(model: widget.model,age: 60,)),
+                );
+              },
+              child: Text(
+                '60 Day Vehicles',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline,
+                  fontSize: 14,
+                ),
               ),
             ),
           ),
           const SizedBox(
             height: 10,
           ),
-          const Padding(
-            padding: EdgeInsets.only(right: 60),
-            child: Text(
-              '60 Day Vehicles',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.underline,
-                fontSize: 14,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          const Padding(
+           Padding(
             padding: EdgeInsets.only(right: 75),
-            child: Text(
-              '100+ Day Vehicles',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.underline,
-                fontSize: 14,
+            child: InkWell(
+              onTap: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                    builder: (context) =>
+                    TwentyOneDaysVehicle(model: widget.model,age: 100,)));
+              },
+              child: Text(
+                '100+ Day Vehicles',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline,
+                  fontSize: 14,
+                ),
               ),
             ),
           ),
@@ -156,6 +203,32 @@ class _DrawerScreenState extends State<DrawerScreen> {
               ),
               onTap: () {
                 scanQRCode();
+              },
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: EdgeInsets.only(right: 180),
+            child: GestureDetector(
+              child: Text(
+                'Log Out',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+              onTap: () {
+                var box = Hive.box('authenticationBox');
+                box.clear();
+
+                // Navigator.pushAndRemoveUntil(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => const LoginScreen()),
+                //     (route) => false);
               },
             ),
           ),

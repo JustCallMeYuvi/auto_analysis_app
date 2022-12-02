@@ -1,6 +1,8 @@
+import 'package:auto_analytics_app/active_inventory_feed.dart';
 import 'package:auto_analytics_app/app_colors.dart';
 import 'package:auto_analytics_app/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -10,6 +12,9 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+  var box = Hive.box('authenticationBox');
+
+
   @override
   void initState() {
     super.initState();
@@ -17,9 +22,25 @@ class _SplashState extends State<Splash> {
   }
 
   _navigatetoHome() async {
-    await Future.delayed(const Duration(seconds: 5), () {});
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    String ? token = box.get("token");
+
+    if(token == null || token == "")
+      {
+        await Future.delayed(const Duration(seconds: 5), () {});
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+
+      }
+    else
+      {
+        Future.delayed(Duration.zero, () {
+          Navigator.push(context, MaterialPageRoute(builder: (_)=>ActiveInventoryFeed()));
+        });
+
+
+
+      }
+
   }
 
   @override
