@@ -43,6 +43,8 @@ dependencies:
   flutter_barcode_scanner: ^2.0.0
   hive:
   path_provider:
+  syncfusion_flutter_gauges: ^20.3.61
+  syncfusion_flutter_charts:
   
 dev_dependencies:
   flutter_test:

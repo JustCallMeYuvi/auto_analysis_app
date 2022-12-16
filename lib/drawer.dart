@@ -1,6 +1,7 @@
 import 'package:auto_analytics_app/app_colors.dart';
-import 'package:auto_analytics_app/login_page.dart';
+
 import 'package:auto_analytics_app/model/car_information_model.dart';
+import 'package:auto_analytics_app/prediction_model_overview.dart';
 import 'package:auto_analytics_app/twenty_one_days_vehicle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -162,14 +163,26 @@ class _DrawerScreenState extends State<DrawerScreen> {
           const SizedBox(
             height: 25,
           ),
-          const Padding(
+           Padding(
             padding: EdgeInsets.only(right: 30),
-            child: Text(
-              'Go to Prediction Model Overview',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
+            child: InkWell(
+              onTap: (){
+             {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>  PredictionModelOverView(model: widget.model,)),
+                  );
+                }
+
+              },
+
+              child: Text(
+                'Go to Prediction Model Overview',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
               ),
             ),
           ),
