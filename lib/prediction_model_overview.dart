@@ -1,4 +1,5 @@
 
+import 'package:auto_analytics_app/vehicle_over_view.dart';
 import 'package:auto_analytics_app/widgets/car_information_card.dart';
 import 'package:auto_analytics_app/widgets/card.dart';
 import 'package:flutter/material.dart';
@@ -161,8 +162,17 @@ class _PredictionModelOverViewState extends State<PredictionModelOverView> {
                               //itemCount: filterModels.length,
                               itemCount: widget.model!.data!.vehicle!.length,
                               itemBuilder: (context, index) {
-                                return CardDetails(car: widget.model!.data!
-                                    .vehicle![index]);
+                                return InkWell(
+                                  child: CardDetails(car: widget.model!.data!
+                                      .vehicle![index]),
+                                  onTap:     () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) =>VehicleOverView  (car: widget!.model!.data!.vehicle![index])),
+                                    );
+                                  },
+                                );
+
                               },
                               shrinkWrap: true,
                               primary: false,

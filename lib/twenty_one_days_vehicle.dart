@@ -1,8 +1,8 @@
 import 'package:auto_analytics_app/app_colors.dart';
 import 'package:auto_analytics_app/model/car_information_model.dart';
+import 'package:auto_analytics_app/vehicle_over_view.dart';
 import 'package:auto_analytics_app/widgets/car_information_card.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 
 class TwentyOneDaysVehicle extends StatefulWidget {
   TwentyOneDaysVehicle({Key? key, this.model, this.age}) : super(key: key);
@@ -168,7 +168,14 @@ class _TwentyOneDaysVehicleState extends State<TwentyOneDaysVehicle> {
                         child: ListView.builder(
                           itemCount: filterModels.length,
                           itemBuilder: (context, index) {
-                            return CarInformation(car: filterModels[index]);
+                            return InkWell(child: CarInformation(car: filterModels[index]),
+                            onTap:     () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) =>VehicleOverView  (car: widget!.model!.data!.vehicle![index])),
+                              );
+                            },
+                            );
                           },
                           shrinkWrap: true,
                           primary: false,

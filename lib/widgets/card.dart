@@ -36,31 +36,71 @@ class _CardDetailsState extends State<CardDetails> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  Row(
+                    children: [
+                      Text(
+                        widget.car.vehicle??'',
+                        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      //SizedBox(width: 25,),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 25),
+                        child: Text(
+                            "Stock: ${widget.car.stock}",
+                          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+
+                    ],
+                  ),
                   Text(
-                    widget.car.vin??'',
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                     "VIN: ${widget.car.vin}",
+                    style: const TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
                     overflow: TextOverflow.ellipsis,
                   ),
-                  Text(
-                     'Hi',
-                    style: const TextStyle(fontSize: 14),
-                    overflow: TextOverflow.ellipsis,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                               'Vehicle Online 4 Days',
+                              style:  TextStyle(fontSize: 12,color: Color(0xff0000003),fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            Text(
+                              "Vehicle Predicted to Sell at Day ${widget.car.age} ",
+                              style: const TextStyle(fontSize: 12,),overflow: TextOverflow.clip,maxLines: 1,
+                            ),
+
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 10,),
+                      Column(
+
+                        children: [
+
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: Image.asset('assets/images/yes.png',width: 30,height: 30,),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: Image.asset('assets/images/circle.png',width: 30,height: 30,),
+                          ),
+
+                        ],
+                      )
+                    ],
                   ),
-                  Text(
-                     'Hi',
-                    style: const TextStyle(fontSize: 14),
-                  ),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                  Text(
-                    "Liklihood to sell w/in 30 Days: ",
-                    style: const TextStyle(fontSize: 12),overflow: TextOverflow.clip,maxLines: 1,
-                  ),
-                  Text(
-                    "Price: Cost: ",
-                    style: const TextStyle(fontSize: 12),
-                  ),
+
+
                 ],
               ),
             ),

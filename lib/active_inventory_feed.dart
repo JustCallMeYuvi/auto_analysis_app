@@ -1,3 +1,5 @@
+
+
 import 'package:auto_analytics_app/vehicle_over_view.dart';
 import 'package:auto_analytics_app/widgets/car_information_card.dart';
 import 'package:auto_analytics_app/widgets/header.dart';
@@ -20,10 +22,10 @@ class _ActiveInventoryFeedState extends State<ActiveInventoryFeed> {
   void initState() {
     super.initState();
     //fetch data from api
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      // executes after build
-      getCars();
-    });
+    // WidgetsBinding.instance!.addPostFrameCallback((_) {
+    //   // executes after build
+    //   getCars();
+    // });
   }
 
   @override
@@ -43,29 +45,34 @@ class _ActiveInventoryFeedState extends State<ActiveInventoryFeed> {
                             HeaderHomePage(
                               model: model!,
                             ),
+                            if(model.data != null)
                             Expanded(
-                              child: InkWell(
-                                child: Container(
-                                    decoration: const BoxDecoration(color: Color(0xfff7f7f7)),
-                                    child: ListView.builder(
-                                      padding: const EdgeInsets.only(top: 12),
-                                      itemBuilder: (BuildContext context, int index) {
-                                        Vehicle? car = model!.data?.vehicle!.elementAt(index);
-                                        return CarInformation(car: car!);
-                                      },
-                                      // 40 list items
-                                      itemCount: model!.data?.vehicle!.length,
-                                    ),
-                                  ),
-                                onTap: () {
-                            Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const VehicleOverView()),
-                            );
-                            },
-                              ),
-                              ),
+                              child: Container(
+                                  decoration: const BoxDecoration(color: Color(0xfff7f7f7)),
+                                  child: ListView.builder(
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    padding: const EdgeInsets.only(top: 12),
+                                    itemBuilder: (BuildContext context, int index) {
+                                      Vehicle? car = model!.data?.vehicle![index];
+                                      // print(car);
+                                      // print(model.data!.vehicle!.length);
+                                      return InkWell(child: CarInformation(car: car!),
+                                      onTap: // Within the `FirstRoute` widget
+                                      () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) =>VehicleOverView  (car: car,)),
+                                        );
+                                      }
+                                      );
+                                    },
+                                    // 40 list items
+                                    itemCount: model!.data?.vehicle!.length,
 
+
+                                  ),
+                                ),
+                              ),
                           ],
                         ),
                       );
@@ -79,8 +86,8 @@ class _ActiveInventoryFeedState extends State<ActiveInventoryFeed> {
         await http.get(Uri.parse('https://powerbi.approcket.in/api/v1/report'));
     print(rawModel.statusCode.toString());
     print(rawModel.body);
-     carInformationModelFromJson(rawModel.body);
-    return      carInformationModelFromJson(rawModel.body);
+     // carInformationModelFromJson(rawModel.body);
+    return carInformationModelFromJson(rawModel.body);
   }
 
 

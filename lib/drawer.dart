@@ -173,9 +173,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     MaterialPageRoute(builder: (context) =>  PredictionModelOverView(model: widget.model,)),
                   );
                 }
-
               },
-
               child: Text(
                 'Go to Prediction Model Overview',
                 style: TextStyle(
