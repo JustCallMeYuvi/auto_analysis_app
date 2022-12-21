@@ -136,58 +136,65 @@ class _VehicleOverViewState extends State<VehicleOverView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 11,),
-                    Row(
-                      children: [
-                        Container(
-                          width: 90,
-                          height: 90,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.network(
-                              "https://image.shutterstock.com/image-illustration/modern-cars-studio-room-3d-260nw-735402217.jpg",
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              widget.car.vin ?? '',
-                              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            Text(
-                              widget.car.vehicle ?? '',
-                              style: const TextStyle(fontSize: 14),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            Text(
-                              widget.car.stock ?? '',
-                              style: const TextStyle(fontSize: 14),
-                            ),
-                            const SizedBox(
-                              height: 4,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                "Liklihood to sell w/in 30 Days: ${widget.car.calc}",
-                                style: const TextStyle(fontSize: 12),overflow: TextOverflow.clip,maxLines: 1,
+                    Container(
+
+                      decoration: BoxDecoration(
+                          color: const Color(0xffFFFFFF),
+                          border: Border.all(color:AppColors.border, width: 3.0)),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 90,
+                            height: 90,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.network(
+                                "https://image.shutterstock.com/image-illustration/modern-cars-studio-room-3d-260nw-735402217.jpg",
+                                fit: BoxFit.cover,
                               ),
                             ),
-                            Text(
-                              "Price: \$${widget.car.calc} Cost: ${widget.car.cost}",
-                              style: const TextStyle(fontSize: 12),
-                            ),
-                          ],
-                        ),
-                      ],
+
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.car.vin ?? '',
+                                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text(
+                                widget.car.vehicle ?? '',
+                                style: const TextStyle(fontSize: 14),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text(
+                                widget.car.stock ?? '',
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Liklihood to sell w/in 30 Days: ${widget.car.calc}",
+                                  style: const TextStyle(fontSize: 12),overflow: TextOverflow.clip,maxLines: 1,
+                                ),
+                              ),
+                              Text(
+                                "Price: \$${widget.car.calc} Cost: ${widget.car.cost}",
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 08,),
                       Column(
